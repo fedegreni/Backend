@@ -8,7 +8,7 @@ const cartRouter = Router()
 
 const carritosPath = path.resolve(__dirname, '../src/db/carritos.json'); 
 
-// Leer el archivo
+
 const carritosData = await fs.readFile(carritosPath, 'utf-8');
 const carritos = JSON.parse(carritosData);
 
