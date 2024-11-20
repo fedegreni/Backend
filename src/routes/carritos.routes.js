@@ -6,13 +6,13 @@ import path from 'path';
 
 const cartRouter = Router()
 
-const carritosPath = path.resolve(__dirname, '../src/db/carritos.json'); //Dada una ruta, las concateno entre si (evito utiliza el +)
+const carritosPath = path.resolve(__dirname, '../src/db/carritos.json'); 
 
 // Leer el archivo
 const carritosData = await fs.readFile(carritosPath, 'utf-8');
 const carritos = JSON.parse(carritosData);
 
-//Consultar los productos guardados en un carrito
+
 cartRouter.get('/:cid', (req,res)=> {
     const idCarrito = req.params.cid
     const carrito = carritos.find(cart => cart.id == idCarrito)
@@ -26,7 +26,7 @@ cartRouter.get('/:cid', (req,res)=> {
     }
 })
 
-//Crear un nuevo carrito
+
 cartRouter.post('/', async (req,res) => {
     const newCart = {
         id: crypto.randomBytes(5).toString('hex'),
@@ -37,7 +37,7 @@ cartRouter.post('/', async (req,res) => {
     res.status(200).send(`Carrito creado correctamente con el id ${newCart.id}`)
 })
 
-//Agregar nuevo producto al carrito
+
 cartRouter.post('/:cid/products/:pid', async (req,res) => {
     const idCarrito = req.params.cid
     const idProducto = req.params.pid
@@ -48,9 +48,9 @@ cartRouter.post('/:cid/products/:pid', async (req,res) => {
     if(carrito) {
         const indice = carrito.products.findIndex(prod => prod.id == idProducto)
         
-        if(indice != -1) { //Si el producto existe, piso con la nueva cantidad
+        if(indice != -1) { 
             carrito.products[indice].quantity = quantity
-        } else { //Si el producto no existe, lo creo y lo guardo
+        } else { 
             carrito.products.push({id: idProducto, quantity: quantity})
         }
         await fs.writeFile(carritosPath, JSON.stringify(carritos))

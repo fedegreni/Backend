@@ -6,20 +6,18 @@ import path from 'path';
 
 const productRouter = Router()
 
-const productosPath = path.resolve(__dirname, '../src/db/productos.json'); //Dada una ruta, las concateno entre si (evito utiliza el +), evito error por / o \
-
-// Leer el archivo
+const productosPath = path.resolve(__dirname, '../src/db/productos.json');
 const productosData = await fs.readFile(productosPath, 'utf-8');
-const productos = JSON.parse(productosData); //Para no consultar todo el tiempo al json, lo guardo en una variable
+const productos = JSON.parse(productosData); 
 
-// Consultar productos
+
 productRouter.get('/', (req,res) => {
     const {limit} = req.query
-    const products = productos.slice(0, limit) //Devuelve una copia de un array (inicio, fin)
+    const products = productos.slice(0, limit) 
     res.status(200).send(products)
 })
 
-// Consultar producto via ID
+
 productRouter.get('/:pid', (req,res) => {
     const idProducto = req.params.pid
     const producto = productos.find(prod => prod.id == idProducto)
@@ -31,11 +29,11 @@ productRouter.get('/:pid', (req,res) => {
     }
 })
 
-//Crear un nuevo producto
+
 productRouter.post('/', async (req,res) => {
    const {title, description, code, price, category, stock} = req.body
    const nuevoProducto = {
-        id: crypto.randomBytes(10).toString('hex'), //Me genera un id unico
+        id: crypto.randomBytes(10).toString('hex'), 
         title: title,
         description: description,
         code: code,
@@ -46,11 +44,11 @@ productRouter.post('/', async (req,res) => {
         thumbnails: []
    }
    productos.push(nuevoProducto)
-   await fs.writeFile(productosPath, JSON.stringify(productos)) //Guardo en el archivo json el nuevo producto 
+   await fs.writeFile(productosPath, JSON.stringify(productos)) 
    res.status(201).send({mensaje: `Producto creado correctamente con el id: ${nuevoProducto.id}`})
 })
 
-//Actualiza un producto dado su id y pido los datos a actualizar del cuerpo de la peticion
+
 productRouter.put('/:pid', async (req,res) => {
     const idProducto = req.params.pid
     const {title, description, code, price, category, stock, thumbnails, status} = req.body
@@ -72,7 +70,7 @@ productRouter.put('/:pid', async (req,res) => {
     }
 })
 
-//Elimina un producto dado su id
+
 productRouter.delete('/:pid', async (req,res) => {
     const idProducto = req.params.pid
     const indice = productos.findIndex(prod => prod.id == idProducto)

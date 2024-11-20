@@ -10,31 +10,31 @@ const app = express()
 const hbs = create()
 const PORT = 8080
 
-//Middlewares de aplicacion
-app.use(express.json()) //Para manejar JSON en las peticiones
+
+app.use(express.json()) 
 app.use(express.urlencoded({extended: true}))
-//Configuracion de hbs para localizacion de plantillas y extension de archivo
+
 app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars')
 
-//Establezco el directorio de las vistas
 
 
-app.use('/static', express.static(__dirname + '/public'))//Defino la carpeta publica como destino de los archivos estaticos
+
+app.use('/static', express.static(__dirname + '/public'))
 app.set('views', path.join(__dirname, 'views'))
 console.log(__dirname);
 
-//app.set('views',__dirname + '/src/views')
+
 
 app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)
 app.use('/upload', multerRouter)
 const productos = [
-    {nombre: "Chocolate", marca: "Chocolatin", precio: 2450, stock: 12, status: true},
-    {nombre: "Hamburguesa", marca: "Hamburguesin", precio: 2230, stock: 22, status: true},
-    {nombre: "Arroz", marca: "Arrocin", precio: 1330, stock: 42, status: false}
-]
-//res.render('nombre-plantilla', {objetos a enviar})
+    {nombre: "iPhone 13", marca: "Apple", precio: 950000, stock: 10, status: true},
+    {nombre: "Galaxy S22", marca: "Samsung", precio: 890000, stock: 15, status: true},
+    {nombre: "Moto G Stylus", marca: "Motorola", precio: 750000, stock: 20, status: true},
+];
+
 app.get('/', (req,res) => {
     res.render('productos', {productos})
 })
