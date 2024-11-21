@@ -1,0 +1,24 @@
+[
+    {
+      "nombre": "iPhone 13",
+      "marca": "Apple",
+      "precio": 950000,
+      "stock": 10,
+      "status": true
+    },
+    {
+      "nombre": "Galaxy S22",
+      "marca": "Samsung",
+      "precio": 890000,
+      "stock": 15,
+      "status": true
+    },
+    {
+      "nombre": "Moto G Stylus",
+      "marca": "Motorola",
+      "precio": 750000,
+      "stock": 20,
+      "status": true
+    }
+  ]
+  
