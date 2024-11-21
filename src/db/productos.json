@@ -1,24 +1,35 @@
 [
-    {
-      "nombre": "iPhone 13",
-      "marca": "Apple",
-      "precio": 950000,
-      "stock": 10,
-      "status": true
-    },
-    {
-      "nombre": "Galaxy S22",
-      "marca": "Samsung",
-      "precio": 890000,
-      "stock": 15,
-      "status": true
-    },
-    {
-      "nombre": "Moto G Stylus",
-      "marca": "Motorola",
-      "precio": 750000,
-      "stock": 20,
-      "status": true
-    }
-  ]
-  
+  {
+    "id": "d39b6df23331fa645d61",
+    "title": "Iphone 13",
+    "description": "Description",
+    "code": "D123F",
+    "category": "Phone",
+    "price": 1500,
+    "stock": 1,
+    "status": true,
+    "thumbnails": []
+  },
+  {
+    "id": "05ab7e770e9d57ca30d1",
+    "title": "Iphone 15",
+    "description": "Description",
+    "code": "AB123",
+    "category": "Phone",
+    "price": 3500,
+    "stock": 5,
+    "status": true,
+    "thumbnails": []
+  },
+  {
+    "id": "a979c465e4218e55120f",
+    "title": "Iphone 16 Pro Max",
+    "description": "Description",
+    "code": "BE432",
+    "category": "Phone",
+    "price": 7500,
+    "stock": 10,
+    "status": true,
+    "thumbnails": []
+  }
+]

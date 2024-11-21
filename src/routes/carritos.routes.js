@@ -33,7 +33,7 @@ cartRouter.post('/', async (req,res) => {
         products: []
     }
     carritos.push(newCart)
-    await fs.writeFile(carritosPath, JSON.stringify(carritos))
+    await fs.writeFile(carritosPath, JSON.stringify(carritos , null, 2))
     res.status(200).send(`Carrito creado correctamente con el id ${newCart.id}`)
 })
 
@@ -53,7 +53,7 @@ cartRouter.post('/:cid/products/:pid', async (req,res) => {
         } else { 
             carrito.products.push({id: idProducto, quantity: quantity})
         }
-        await fs.writeFile(carritosPath, JSON.stringify(carritos))
+        await fs.writeFile(carritosPath, JSON.stringify(carritos, null, 2))
         res.status(200).send("Carrito actualizado correctamente")
     } else {
         res.status(404).send({mensaje: "El carrito no existe"})

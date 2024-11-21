@@ -44,7 +44,7 @@ productRouter.post('/', async (req,res) => {
         thumbnails: []
    }
    productos.push(nuevoProducto)
-   await fs.writeFile(productosPath, JSON.stringify(productos)) 
+   await fs.writeFile(productosPath, JSON.stringify(productos, null, 2)) 
    res.status(201).send({mensaje: `Producto creado correctamente con el id: ${nuevoProducto.id}`})
 })
 
@@ -63,7 +63,7 @@ productRouter.put('/:pid', async (req,res) => {
         productos[indice].status = status
         productos[indice].category = category
         productos[indice].thumbnails = thumbnails
-        await fs.writeFile(productosPath, JSON.stringify(productos))
+        await fs.writeFile(productosPath, JSON.stringify(productos, null, 2))
         res.status(200).send({mensaje: "Producto actualizado"})
     } else {
         res.status(404).send({mensaje: "El producto no existe"})
@@ -76,7 +76,7 @@ productRouter.delete('/:pid', async (req,res) => {
     const indice = productos.findIndex(prod => prod.id == idProducto)
     if(indice != -1) {
         productos.splice(indice, 1)
-        await fs.writeFile(productosPath, JSON.stringify(productos))
+        await fs.writeFile(productosPath, JSON.stringify(productos, null, 2))
         res.status(200).send({mensaje: 'Producto eliminado'})
     } else {
         res.status(404).send({mensaje: "El producto no existe"})
