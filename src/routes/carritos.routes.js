@@ -38,26 +38,31 @@ cartRouter.post('/', async (req,res) => {
 })
 
 
-cartRouter.post('/:cid/products/:pid', async (req,res) => {
-    const idCarrito = req.params.cid
-    const idProducto = req.params.pid
-    const {quantity} = req.body
+cartRouter.post('/:cid/products/:pid', async (req, res) => {
+    const idCarrito = req.params.cid;
+    const idProducto = req.params.pid;
+    const { quantity } = req.body;
 
-    const carrito = carritos.find(cart => cart.id == idCarrito)
-
-    if(carrito) {
-        const indice = carrito.products.findIndex(prod => prod.id == idProducto)
-        
-        if(indice != -1) { 
-            carrito.products[indice].quantity = quantity
-        } else { 
-            carrito.products.push({id: idProducto, quantity: quantity})
-        }
-        await fs.writeFile(carritosPath, JSON.stringify(carritos, null, 2))
-        res.status(200).send("Carrito actualizado correctamente")
-    } else {
-        res.status(404).send({mensaje: "El carrito no existe"})
+    if (!quantity || quantity <= 0) {
+        return res.status(400).send({ mensaje: "La cantidad debe ser mayor a 0." });
     }
-})
+
+    const carrito = carritos.find(cart => cart.id == idCarrito);
+
+    if (carrito) {
+        const indice = carrito.products.findIndex(prod => prod.id == idProducto);
+
+        if (indice != -1) { 
+            carrito.products[indice].quantity += quantity; 
+        } else { 
+            carrito.products.push({ id: idProducto, quantity });
+        }
+
+        await fs.writeFile(carritosPath, JSON.stringify(carritos, null, 2));
+        res.status(200).send("Carrito actualizado correctamente");
+    } else {
+        res.status(404).send({ mensaje: "El carrito no existe" });
+    }
+});
 
 export default cartRouter
